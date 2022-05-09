@@ -10,6 +10,7 @@ from sklearn.metrics import precision_recall_curve, average_precision_score
 from sklearn.preprocessing import LabelEncoder
 from tensorflow.keras.utils import Sequence
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+import collections
 
 def read_edstays_table(edstays_table_path):
     df_edstays = pd.read_csv(edstays_table_path)

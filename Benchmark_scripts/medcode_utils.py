@@ -155,8 +155,8 @@ def extract_icd_list(df_edstays, df_diagnoses, df_admissions, output_path, timer
         df_icd_list, icd_encode_map = icd_list(df_edstays, df_diagnoses, df_admissions, timerange = timerange, version = 9, digit3=False)
     elif version == 'v10':
         df_icd_list, icd_encode_map = icd_list(df_edstays, df_diagnoses, df_admissions, timerange = timerange, version = 10, digit3=False)
-    df_icd_list.to_csv(os.path.join(output_path, 'icd_list_dataset_'+version+'.csv'), index=False)
-    with open(os.path.join(output_path, 'icd_encode_map_'+version),'wb') as f:
+    df_icd_list.to_csv(os.path.join(output_path, 'icd_list_dataset_'+version+'.csv').replace("\\","/"), index=False)
+    with open(os.path.join(output_path, 'icd_encode_map_'+version).replace("\\","/"),'wb') as f:
         pickle.dump(icd_encode_map,f)
     print('Number of unique ICD codes '+version+': ', len(icd_encode_map))
 

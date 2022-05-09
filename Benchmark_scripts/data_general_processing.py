@@ -28,7 +28,7 @@ vitals_valid_range = {
 
 
 # Reading master_dataset.csv
-df_master = pd.read_csv(os.path.join(master_dataset_path, 'master_dataset.csv'))
+df_master = pd.read_csv(os.path.join(master_dataset_path, 'master_dataset.csv').replace("\\","/"))
 
 # Filtering Age < 18
 df_master = df_master[df_master['age'] >= 18]
@@ -74,5 +74,5 @@ add_score_NEWS2(df_train)
 add_score_MEWS(df_train)
 
 # Output train and test csv
-df_train.to_csv(os.path.join(output_path, 'train.csv'), index=False)
-df_test.to_csv(os.path.join(output_path, 'test.csv'), index=False)
+df_train.to_csv(os.path.join(output_path, 'train.csv').replace("\\","/"), index=False)
+df_test.to_csv(os.path.join(output_path, 'test.csv').replace("\\","/"), index=False)

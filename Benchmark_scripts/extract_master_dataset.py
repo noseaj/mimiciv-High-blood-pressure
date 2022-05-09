@@ -1,6 +1,8 @@
 import argparse
+import imp
 from helpers import *
 from medcode_utils import commorbidity, extract_icd_list
+import collections
 
 parser = argparse.ArgumentParser(description='Extract per-subject data from MIMIC-III CSV files.')
 
@@ -17,10 +19,10 @@ output_path = args.output_path
 icu_transfer_timerange = args.icu_transfer_timerange 
 next_ed_visit_timerange = args.next_ed_visit_timerange 
 
-mimic_iv_core_path = os.path.join(mimic_iv_path, 'core')
-mimic_iv_hosp_path = os.path.join(mimic_iv_path , 'hosp')   
-mimic_iv_icu_path = os.path.join(mimic_iv_path, 'icu')
-mimic_iv_ed_path = os.path.join(mimic_iv_path, 'ed')
+mimic_iv_core_path = os.path.join(mimic_iv_path, 'core').replace("\\","/")
+mimic_iv_hosp_path = os.path.join(mimic_iv_path , 'hosp').replace("\\","/")   
+mimic_iv_icu_path = os.path.join(mimic_iv_path, 'icu').replace("\\","/")
+mimic_iv_ed_path = os.path.join(mimic_iv_path, 'ed').replace("\\","/")
 
 icu_filename_dict = {"chartevents":"chartevents.csv","datetimeevents":"datetimeevents.csv","d_items":"d_items.csv","icustays":"icustays.csv","inputevents":"inputevents.csv","outputevents":"outputevents.csv","procedureevents":"procedureevents.csv"}
 core_filename_dict = {"patients":"patients.csv", "admissions":"admissions.csv", "transfers":"transfers.csv"}
@@ -32,17 +34,17 @@ complaint_dict = {"chiefcom_chest_pain" : "chest pain", "chiefcom_abdominal_pain
 "chiefcom_nausea_vomiting" : "nausea|vomit", "chiefcom_fever_chills" : "fever|chill", "chiefcom_syncope" :"syncope", "chiefcom_dizziness" : "dizz"}
 
 ## Reading main tables
-df_edstays = read_edstays_table(os.path.join(mimic_iv_ed_path, ed_filename_dict['edstays']))
-df_patients = read_patients_table(os.path.join(mimic_iv_core_path, core_filename_dict['patients']))
-df_admissions = read_admissions_table(os.path.join(mimic_iv_core_path, core_filename_dict["admissions"]))
-df_icustays = read_icustays_table(os.path.join(mimic_iv_icu_path, icu_filename_dict['icustays']))
-df_triage = read_triage_table(os.path.join(mimic_iv_ed_path, ed_filename_dict['triage']))
-df_vitalsign = read_vitalsign_table(os.path.join(mimic_iv_ed_path, ed_filename_dict['vitalsign']))
-df_pyxis = read_pyxis_table(os.path.join(mimic_iv_ed_path, ed_filename_dict['pyxis']))
-df_medrecon = read_pyxis_table(os.path.join(mimic_iv_ed_path, ed_filename_dict['medrecon']))
+df_edstays = read_edstays_table(os.path.join(mimic_iv_ed_path, ed_filename_dict['edstays'])).replace("\\","/")
+df_patients = read_patients_table(os.path.join(mimic_iv_core_path, core_filename_dict['patients'])).replace("\\","/")
+df_admissions = read_admissions_table(os.path.join(mimic_iv_core_path, core_filename_dict["admissions"])).replace("\\","/")
+df_icustays = read_icustays_table(os.path.join(mimic_iv_icu_path, icu_filename_dict['icustays'])).replace("\\","/")
+df_triage = read_triage_table(os.path.join(mimic_iv_ed_path, ed_filename_dict['triage'])).replace("\\","/")
+df_vitalsign = read_vitalsign_table(os.path.join(mimic_iv_ed_path, ed_filename_dict['vitalsign'])).replace("\\","/")
+df_pyxis = read_pyxis_table(os.path.join(mimic_iv_ed_path, ed_filename_dict['pyxis'])).replace("\\","/")
+df_medrecon = read_pyxis_table(os.path.join(mimic_iv_ed_path, ed_filename_dict['medrecon'])).replace("\\","/")
 
 ## Read data here for ICD.
-df_diagnoses = read_diagnoses_table(os.path.join(mimic_iv_hosp_path, hosp_filename_dict['diagnoses_icd']))
+df_diagnoses = read_diagnoses_table(os.path.join(mimic_iv_hosp_path, hosp_filename_dict['diagnoses_icd'])).replace("\\","/")
 
 
 ## Merging patients -> merging admissions -> merging triage -> master

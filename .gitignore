@@ -1,4 +1,5 @@
-
+dataset/
+eda/report.html
 *.csv
 Benchmark_scripts/.ipynb_checkpoints/triage_data-checkpoint.ipynb
 Benchmark_scripts/.ipynb_checkpoints/triage_data - Copy-checkpoint.ipynb
