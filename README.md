@@ -1,2 +1,2 @@
-- dataset/mimiciv/ 안에 core, ed, hosp, icu를 두고 진행할 것
+- dataset/mimiciv/ 안에 core, ed, hosp, icu폴더를 넣고 진행할 것
 - dataset/ 안에 master_dataset.csv 등을 두고 진행할 것
