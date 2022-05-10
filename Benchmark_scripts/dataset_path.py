@@ -1,6 +1,6 @@
 ## Defining "argparse" parameters
 
-mimic_iv_path = '/dataset/mimiciv/'
+mimic_iv_path = '../dataset/mimiciv/'
 output_path = '../dataset/'
 
 #mimic_iv_path = '/Users/jin/Desktop/Temporal_AutoScore/Data/mimic-iv-1.0'
